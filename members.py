@@ -33,7 +33,7 @@ def member_df(csv_name, url):
 
     # remove old csvs
     try:
-        for f in glob.glob(csv_name + '*csv'):
+        for f in glob.glob(filename + '*csv'):
             os.remove(f)
     except OSError:
         pass
@@ -43,11 +43,11 @@ def member_df(csv_name, url):
 
     # read csv file
     wait = 0
-    while(not glob.glob(csv_name + '*.csv')):
+    while(not glob.glob(filename + '*.csv')):
         wait += 1
         time.sleep(1)
         print('Time Waiting', wait)
-    df = pd.read_csv(glob.glob(csv_name + '*.csv')[0])
+    df = pd.read_csv(glob.glob(filename + '*.csv')[0])
 
     # close chrome
     driver.quit()
@@ -72,3 +72,23 @@ def authen_spreadsheet(json_name, gsheet_id):
 
     wb = gc.open_by_key(gsheet_id)
     return wb
+
+
+def update_sheet():
+    # find member list
+    df = member_df()
+
+    # find price
+    price = find_price(df)
+    print('\u00a3' + str(price))
+
+    # ghseet handle
+    gsheet = authen_spreadsheet()
+
+    # update price
+    sht = gsheet.worksheet('Balance')
+    sht.update_acell('B8', price)
+
+    # update list
+    sht = gsheet.worksheet('Members')
+    set_with_dataframe(sht, df)
