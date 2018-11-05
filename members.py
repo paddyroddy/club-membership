@@ -25,3 +25,30 @@ def login(url, username):
     driver.find_element_by_name('_eventId_proceed').click()
 
     return driver
+
+
+def member_df(csv_name, url):
+    home = os.path.expanduser('~')
+    filename = home + csv_name
+
+    # remove old csvs
+    try:
+        for f in glob.glob(csv_name + '*csv'):
+            os.remove(f)
+    except OSError:
+        pass
+
+    # download file and wait
+    driver = login(url)
+
+    # read csv file
+    wait = 0
+    while(not glob.glob(csv_name + '*.csv')):
+        wait += 1
+        time.sleep(1)
+        print('Time Waiting', wait)
+    df = pd.read_csv(glob.glob(csv_name + '*.csv')[0])
+
+    # close chrome
+    driver.quit()
+    return df
