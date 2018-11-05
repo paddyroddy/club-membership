@@ -52,3 +52,8 @@ def member_df(csv_name, url):
     # close chrome
     driver.quit()
     return df
+
+
+def find_price(dataframe):
+    return dataframe['Total'].replace(
+        '\u00a3', '', regex=True).astype(float).sum()
