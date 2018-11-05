@@ -11,13 +11,15 @@ import yaml
 
 
 class RetrieveMembers:
-    def __init__(self, username, csv_name, url, json_name, gsheet_id):
+    def __init__(self, input):
         self.password = getpass.getpass('Union Password:')
-        self.username = username
-        self.csv_name = csv_name
-        self.url = url
-        self.json_name = json_name
-        self.gsheet_id = gsheet_id
+        content = open(input)
+        vars = yaml.load(content)
+        self.username = vars['username']
+        self.csv_name = vars['csv_name']
+        self.url = vars['url']
+        self.json_name = vars['json_name']
+        self.gsheet_id = vars['gsheet_id']
 
     def login(self, url):
         # opens chrome
@@ -99,13 +101,5 @@ class RetrieveMembers:
 
 
 if __name__ == '__main__':
-    content = open('input.yml')
-    loaded = yaml.load(content)
-    username = loaded['username']
-    csv_name = loaded['csv_name']
-    url = loaded['url']
-    json_name = loaded['json_name']
-    gsheet_id = loaded['gsheet_id']
-
-    members = RetrieveMembers(username, csv_name, url, json_name, gsheet_id)
+    members = RetrieveMembers('input.yml')
     members.update_sheet()
