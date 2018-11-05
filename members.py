@@ -57,3 +57,18 @@ def member_df(csv_name, url):
 def find_price(dataframe):
     return dataframe['Total'].replace(
         '\u00a3', '', regex=True).astype(float).sum()
+
+
+def authen_spreadsheet(json_name, gsheet_id):
+    scope = ['https://spreadsheets.google.com/feeds',
+             'https://www.googleapis.com/auth/drive']
+
+    json = os.path.dirname(os.path.realpath(__file__)) + '/' + json_name
+
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+        json, scope)
+
+    gc = gspread.authorize(credentials)
+
+    wb = gc.open_by_key(gsheet_id)
+    return wb
