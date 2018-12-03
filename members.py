@@ -93,7 +93,7 @@ class RetrieveMembers:
 
         # update price
         sht = gsheet.worksheet('Balance')
-        sht.update_acell('B8', price)
+        sht.update_acell('B9', price)
 
         # update list
         sht = gsheet.worksheet('Members')
