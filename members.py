@@ -20,6 +20,7 @@ class RetrieveMembers:
         self.url = vars['url']
         self.json_name = vars['json_name']
         self.gsheet_id = vars['gsheet_id']
+        self.cell_id = vars['cell_id']
 
     def login(self, url):
         # opens chrome
@@ -93,7 +94,7 @@ class RetrieveMembers:
 
         # update price
         sht = gsheet.worksheet('Balance')
-        sht.update_acell('B9', price)
+        sht.update_acell(self.cell_id, price)
 
         # update list
         sht = gsheet.worksheet('Members')
