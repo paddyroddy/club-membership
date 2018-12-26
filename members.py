@@ -70,8 +70,8 @@ class RetrieveMembers:
         scope = ['https://spreadsheets.google.com/feeds',
                  'https://www.googleapis.com/auth/drive']
 
-        json = os.path.dirname(os.path.realpath(
-            __file__)) + '/' + self.json_name
+        json = os.path.join(os.path.dirname(
+            os.path.realpath(__file__)), self.json_name)
 
         credentials = ServiceAccountCredentials.from_json_keyfile_name(
             json, scope)
