@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from selenium import webdriver
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
