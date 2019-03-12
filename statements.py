@@ -53,7 +53,7 @@ class AnalyseStatement:
 
         # value by grant
         index = df['CC'] == 'GC'
-        grouped = df[index].groupby('GL Code')['NET TOTAL'].sum()
+        grouped = df[index].groupby('GL CODE')['NET TOTAL'].sum()
         grant_dict = grouped.to_dict()
         grant_sums = {'grant_' + str(k): v for (k, v) in grant_dict.items()}
         df = df[~index]
