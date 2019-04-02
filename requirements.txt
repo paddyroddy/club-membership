@@ -1,0 +1,7 @@
+argparse
+gspread
+gspread_dataframe
+oauth2client
+pandas
+pyyaml
+selenium
