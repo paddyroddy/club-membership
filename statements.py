@@ -10,7 +10,7 @@ import gspread
 class AnalyseStatement:
     def __init__(self, input):
         content = open(input)
-        vars = yaml.load(content)
+        vars = yaml.load(content, Loader=yaml.FullLoader)
         self.json_name = vars['json_name']
         self.gsheet_id = vars['gsheet_id']
 

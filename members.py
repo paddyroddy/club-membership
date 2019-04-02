@@ -15,7 +15,7 @@ class RetrieveMembers:
     def __init__(self, input):
         self.password = getpass.getpass('Union Password:')
         content = open(input)
-        vars = yaml.load(content)
+        vars = yaml.load(content, Loader=yaml.FullLoader)
         self.username = vars['username']
         self.csv_name = vars['csv_name']
         self.url = vars['url']
