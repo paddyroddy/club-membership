@@ -1,7 +1,6 @@
 argparse
 gspread
 gspread_dataframe
-lmxl
 oauth2client
 pandas
 pyyaml

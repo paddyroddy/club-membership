@@ -92,7 +92,7 @@ class RetrieveMembers:
 
         # find price
         price = self.find_price(df)
-        print("\u00a3" + str(price))
+        print("Members:", len(df), "\u00a3" + str(price))
 
         # ghseet handle
         gsheet = self.authen_spreadsheet()
