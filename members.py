@@ -56,7 +56,11 @@ class RetrieveMembers:
             wait += 1
             time.sleep(1)
             print("Time Waiting", wait)
-        df = pd.read_html(glob.glob(filename + "*.xls")[0])[0]
+        df = pd.read_html(
+            glob.glob(filename + "*.xls")[0],
+            index_col="Order created",
+            parse_dates=True,
+        )[0]
 
         # close chrome
         driver.quit()
@@ -92,7 +96,7 @@ class RetrieveMembers:
 
         # find price
         price = self.find_price(df)
-        print("Members:", len(df), "\u00a3" + str(price))
+        print("Members:", len(df), "Income:", "\u00a3" + str(price))
 
         # ghseet handle
         gsheet = self.authen_spreadsheet()
@@ -103,7 +107,7 @@ class RetrieveMembers:
 
         # update list
         sht = gsheet.worksheet("Members")
-        set_with_dataframe(sht, df)
+        set_with_dataframe(sht, df, include_index=True)
 
 
 if __name__ == "__main__":
