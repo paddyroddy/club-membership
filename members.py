@@ -56,14 +56,16 @@ class RetrieveMembers:
             wait += 1
             time.sleep(1)
             print("Time Waiting", wait)
-        df = pd.read_html(
-            glob.glob(filename + "*.xls")[0],
-            index_col="Order created",
-            parse_dates=True,
-        )[0]
+        df = pd.read_html(glob.glob(filename + "*.xls")[0], index_col="Order created")[
+            0
+        ]
 
         # close chrome
         driver.quit()
+
+        # clean up date columns
+        df.index = pd.to_datetime(df.index, format="%d/%m/%Y, %H:%M")
+        df.sort_index(inplace=True)
         return df
 
     @staticmethod
@@ -81,9 +83,9 @@ class RetrieveMembers:
             "https://www.googleapis.com/auth/drive",
         ]
 
-        json = os.path.join(os.path.dirname(os.path.realpath(__file__)), self.json_name)
-
-        credentials = ServiceAccountCredentials.from_json_keyfile_name(json, scope)
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(
+            self.json_name, scope
+        )
 
         gc = gspread.authorize(credentials)
 
