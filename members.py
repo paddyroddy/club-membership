@@ -65,7 +65,7 @@ class RetrieveMembers:
 
         # clean up date columns
         df.index = pd.to_datetime(df.index, format="%d/%m/%Y, %H:%M")
-        df.sort_index(inplace=True)
+        df.sort_index(inplace=True, ascending=False)
         return df
 
     @staticmethod
