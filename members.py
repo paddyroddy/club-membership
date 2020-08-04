@@ -89,8 +89,7 @@ class RetrieveMembers:
 
         gc = gspread.authorize(credentials)
 
-        wb = gc.open_by_key(self.gsheet_id)
-        return wb
+        return gc.open_by_key(self.gsheet_id)
 
     def update_sheet(self):
         # find member list
