@@ -34,8 +34,7 @@ class AnalyseStatement:
 
         gc = gspread.authorize(credentials)
 
-        wb = gc.open_by_key(self.gsheet_id)
-        return wb
+        return gc.open_by_key(self.gsheet_id)
 
     def process_df(self, df):
         # general data
@@ -67,9 +66,7 @@ class AnalyseStatement:
             "code_UC": code_uc,
             "outgoings": outgoings,
         }
-        output = {**general, **grant_sums}
-
-        return output
+        return {**general, **grant_sums}
 
     @staticmethod
     def item_calculator(dataframe, key, value):
